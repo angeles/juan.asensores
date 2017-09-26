@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiServer", "ApiServer\ApiServer.csproj", "{F2FF5524-1BBA-4F0F-8AC2-88F3FFE4C6B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthServer", "AuthServer\AuthServer.csproj", "{C62F7DC9-92FA-4322-A086-1A8847F01C52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockClient", "MockClient\MockClient.csproj", "{17752017-004B-41B9-92F0-C9B43B52C7C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockClientTest", "MockClientTest\MockClientTest.csproj", "{904523EA-CB66-4F67-B046-E767E1459595}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthApiTester", "AuthApiTester\AuthApiTester.csproj", "{94D8A760-DCBE-474C-BF4A-0F7D566F785E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiServerStandalone", "ApiServerStandalone\ApiServerStandalone.csproj", "{D8AD954F-660A-49D5-82E8-10634A873D15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mock", "Mock", "{78A161CA-2243-4220-9264-8CF43135543A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2FF5524-1BBA-4F0F-8AC2-88F3FFE4C6B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2FF5524-1BBA-4F0F-8AC2-88F3FFE4C6B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2FF5524-1BBA-4F0F-8AC2-88F3FFE4C6B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2FF5524-1BBA-4F0F-8AC2-88F3FFE4C6B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C62F7DC9-92FA-4322-A086-1A8847F01C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C62F7DC9-92FA-4322-A086-1A8847F01C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C62F7DC9-92FA-4322-A086-1A8847F01C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C62F7DC9-92FA-4322-A086-1A8847F01C52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17752017-004B-41B9-92F0-C9B43B52C7C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17752017-004B-41B9-92F0-C9B43B52C7C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17752017-004B-41B9-92F0-C9B43B52C7C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17752017-004B-41B9-92F0-C9B43B52C7C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{904523EA-CB66-4F67-B046-E767E1459595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{904523EA-CB66-4F67-B046-E767E1459595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{904523EA-CB66-4F67-B046-E767E1459595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{904523EA-CB66-4F67-B046-E767E1459595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94D8A760-DCBE-474C-BF4A-0F7D566F785E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94D8A760-DCBE-474C-BF4A-0F7D566F785E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94D8A760-DCBE-474C-BF4A-0F7D566F785E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94D8A760-DCBE-474C-BF4A-0F7D566F785E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8AD954F-660A-49D5-82E8-10634A873D15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8AD954F-660A-49D5-82E8-10634A873D15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8AD954F-660A-49D5-82E8-10634A873D15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8AD954F-660A-49D5-82E8-10634A873D15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{17752017-004B-41B9-92F0-C9B43B52C7C0} = {78A161CA-2243-4220-9264-8CF43135543A}
+		{904523EA-CB66-4F67-B046-E767E1459595} = {78A161CA-2243-4220-9264-8CF43135543A}
+	EndGlobalSection
+EndGlobal
