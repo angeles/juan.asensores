@@ -1,0 +1,76 @@
+﻿<div class='panel panel-primary'>
+	<div class='panel-heading'>
+		Policies
+	</div>
+	<div class='panel-body'>
+		<div *ngIf='!clientLoad'>
+			<search-list [title]='searchTitle' (change)="criteriaChange($event)"></search-list>
+		</div>
+		<div class='table-responsive'>
+			<div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+			<div *ngIf="policies && policies.length==0 && !indLoading" class="alert alert-info" role="alert">No record found!</div>
+			<table class='table table-striped' *ngIf='policies && policies.length'>
+				<thead>
+					<tr>
+						<th>Amount Insured</th>
+						<th>Email</th>
+						<th>Inception Date</th>
+						<th>Installment Payment</th>
+						<th *ngIf='!clientLoad'></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let policy of policies | policyFilter:listFilter | paginate: { id: 'policyPager', itemsPerPage: cantPerPage, currentPage: p }">
+						<td>{{policy.amountInsured}}</td>
+						<td>{{policy.email}}</td>
+						<td>{{policy.inceptionDate}}</td>
+						<td>{{policy.installmentPayment}}</td>
+						<td *ngIf='!clientLoad'>
+							<button title="Client" class="btn btn-primary rounded-control" (click)="viewClient(policy.clientId)">Client</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<ng-container *ngIf="policies.length > 8">
+				<pagination-controls (pageChange)="p = $event" id="policyPager"></pagination-controls>
+			</ng-container>
+			<div>
+			</div>
+		</div>
+		<div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			<span class="sr-only">Error:</span>
+			{{msg}}
+		</div>
+	</div>
+</div>
+
+<ng-container *ngIf="!clientLoad">
+	<modal #modal>
+		<modal-header [show-close]="true">
+			<h4 class="modal-title">Client Detail</h4>
+		</modal-header>
+		<modal-body>
+			<div class="form-group">
+				<div>
+					<span>Name</span>
+					<input type="text" class="form-control" readonly="readonly" placeholder="Name" value="{{_client.name}}">
+				</div>
+				<div>
+					<span>Email</span>
+					<input type="text" class="form-control" readonly="readonly" placeholder="Email" value="{{_client.email}}">
+				</div>
+				<div>
+					<span>Role</span>
+					<input type="text" class="form-control" readonly="readonly" placeholder="Role" value="{{_client.role}}">
+				</div>
+			</div>
+		</modal-body>
+		<modal-footer>
+			<div>
+				<a class="btn btn-default" (click)="modal.dismiss()">Close</a>
+			</div>
+		</modal-footer>
+	</modal>
+</ng-container>

@@ -1,0 +1,15 @@
+﻿<div class="form-inline">
+	<div class="form-group">
+		<label class="h5">{{title}}</label>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-12">
+			<input class="form-control input-sm rounded-control" placeholder="Enter any text to filter" (paste)="getPasteData($event)" (keyup)="getEachChar($event.target.value)" type="text" [(ngModel)]="listFilter" /><span class="glyphicon glyphicon-erase" (click)="clearFilter()" *ngIf="listFilter" ></span>
+		</div>
+	</div>
+	<div class="form-group">
+		<div *ngIf='listFilter'>
+			<div class="h5 text-muted">Filter by: {{listFilter}}</div>
+		</div>
+	</div>
+</div>
