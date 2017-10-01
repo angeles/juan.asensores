@@ -8,6 +8,7 @@ namespace ApiServer.Controllers
 	public class PolicyController : ApiController
 	{
 		[Route("users/{name}/policies")]
+		[Route("?userName={name}")]
 		[Authorize(Roles = "admin")]
 		public IHttpActionResult GetByName(string name)
 		{
