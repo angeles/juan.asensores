@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthServer", "AuthServer\Au
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockClient", "MockClient\MockClient.csproj", "{17752017-004B-41B9-92F0-C9B43B52C7C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockClientTest", "MockClientTest\MockClientTest.csproj", "{904523EA-CB66-4F67-B046-E767E1459595}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthApiTester", "AuthApiTester\AuthApiTester.csproj", "{94D8A760-DCBE-474C-BF4A-0F7D566F785E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiServerStandalone", "ApiServerStandalone\ApiServerStandalone.csproj", "{D8AD954F-660A-49D5-82E8-10634A873D15}"
@@ -35,10 +33,6 @@ Global
 		{17752017-004B-41B9-92F0-C9B43B52C7C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17752017-004B-41B9-92F0-C9B43B52C7C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17752017-004B-41B9-92F0-C9B43B52C7C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{904523EA-CB66-4F67-B046-E767E1459595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{904523EA-CB66-4F67-B046-E767E1459595}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{904523EA-CB66-4F67-B046-E767E1459595}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{904523EA-CB66-4F67-B046-E767E1459595}.Release|Any CPU.Build.0 = Release|Any CPU
 		{94D8A760-DCBE-474C-BF4A-0F7D566F785E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94D8A760-DCBE-474C-BF4A-0F7D566F785E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94D8A760-DCBE-474C-BF4A-0F7D566F785E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,6 +47,5 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{17752017-004B-41B9-92F0-C9B43B52C7C0} = {78A161CA-2243-4220-9264-8CF43135543A}
-		{904523EA-CB66-4F67-B046-E767E1459595} = {78A161CA-2243-4220-9264-8CF43135543A}
 	EndGlobalSection
 EndGlobal
