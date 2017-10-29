@@ -1,56 +1,52 @@
-﻿using System;
-using System.Linq;
-using System.Net;
+﻿using ApiServer.Models;
+using ApiServer.Services.Interfaces;
+using AutoMapper;
+using System;
 using System.Web.Http;
-using ServiceClient = MockClient.MockClient;
+using System.Web.Http.Description;
 
 namespace ApiServer.Controllers
 {
 	public class UserController : ApiController
 	{
+		public readonly IClientService _service;
+
+		public readonly IMapper _iMapper;
+
+		public UserController(IClientService service, IMapper iMapper)
+		{
+			_service = service;
+			_iMapper = iMapper;
+		}
+
 		[Route("users/{id:guid}")]
 		[Authorize(Roles = "user,admin")]
+		[ResponseType(typeof(ClientModel))]
 		public IHttpActionResult Get(Guid id)
 		{
-			var service = new ServiceClient();
-			var client = service.GetClients().FirstOrDefault(x => x.Id == id);
+			var client = _service.ById(id);
 
-			if (client == null)
-				return Content(HttpStatusCode.NotFound, "User Id does not exist.");
-
-			return Json(client);
+			return Ok(_iMapper.Map<ClientModel>(client));
 		}
 
 		[Route("users/{name}")]
 		[Authorize(Roles = "user,admin")]
+		[ResponseType(typeof(ClientModel))]
 		public IHttpActionResult GetByName(string name)
 		{
-			var service = new ServiceClient();
+			var client = _service.GetByName(name);
 
-			var client = service.GetClients().FirstOrDefault(x => x.Name == name);
-
-			if (client == null)
-				return Content(HttpStatusCode.NotFound, "User Name does not exist.");
-
-			return Json(client);
+			return Ok(_iMapper.Map<ClientModel>(client));
 		}
 
 		[Route("policies/{number:guid}/user")]
 		[Authorize(Roles = "admin")]
-		public IHttpActionResult GetByName(Guid number)
+		[ResponseType(typeof(ClientModel))]
+		public IHttpActionResult GetByPolicy(Guid number)
 		{
-			var service = new ServiceClient();
-			var policy = service.GetPolicies().FirstOrDefault(x => x.Id == number);
+			var client = _service.GetByPolicyId(number);
 
-			if (policy == null)
-				return Content(HttpStatusCode.NotFound, "Policy does not exist.");
-
-			var client = service.GetClients().FirstOrDefault(x => x.Id == policy.ClientId);
-
-			if (client == null)
-				return Content(HttpStatusCode.NotFound, "No user is assigned to this policy.");
-
-			return Json(client);
+			return Ok(_iMapper.Map<ClientModel>(client));
 		}
 	}
 }

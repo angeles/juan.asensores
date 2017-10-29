@@ -50,13 +50,15 @@ namespace AuthApiTester
 		{
 			Console.WriteLine(string.Format("Requesting '{0}users/Turner/policies'", apiClient.BaseAddress));
 			var result = apiClient.GetStringAsync("/users/Turner/policies").Result;
+			var result2 = apiClient.GetStringAsync("/policies/?userName=Turner").Result;
+			Assert.AreEqual(result, result2);
 			Console.WriteLine(result);
 		}
 
 		[TestMethod]
 		public void AdminClient_GetUserLinkedToPolicy()
 		{
-			Console.WriteLine(string.Format("Requesting '{0}policies/7b624ed3-00d5-4c1b-9ab8-c265067ef58b/user'", apiClient.BaseAddress));
+			Console.WriteLine(string.Format("Requesting '{0}policies/7b624ed3-00d5-4c1b-9ab8-c265067ef58b/client'", apiClient.BaseAddress));
 			var result = apiClient.GetStringAsync("/policies/7b624ed3-00d5-4c1b-9ab8-c265067ef58b/user").Result;
 			Console.WriteLine(result);
 		}

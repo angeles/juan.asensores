@@ -1,26 +1,33 @@
-﻿using System.Linq;
-using System.Net;
+﻿using ApiServer.Models;
+using ApiServer.Services.Interfaces;
+using AutoMapper;
+using System.Collections.Generic;
 using System.Web.Http;
-using ServiceClient = MockClient.MockClient;
+using System.Web.Http.Description;
 
 namespace ApiServer.Controllers
 {
 	public class PolicyController : ApiController
 	{
-		[Route("users/{name}/policies")]
-		[Route("?userName={name}")]
-		[Authorize(Roles = "admin")]
-		public IHttpActionResult GetByName(string name)
+		public readonly IPolicyService _service;
+
+		public readonly IMapper _iMapper;
+
+		public PolicyController(IPolicyService service, IMapper iMapper)
 		{
-			var service = new ServiceClient();
+			_service = service;
+			_iMapper = iMapper;
+		}
 
-			var client = service.GetClients().FirstOrDefault(x => x.Name == name);
-			if (client == null)
-				return Content(HttpStatusCode.NotFound, "User Name does not exist.");
+		[Route("users/{userName}/policies")]
+		[Route("policies")]
+		[Authorize(Roles = "admin")]
+		[ResponseType(typeof(ICollection<PolicyModel>))]
+		public IHttpActionResult GetByClientName(string userName)
+		{
+			var policies = _service.GetByClientName(userName);
 
-			var policies = service.GetPolicies().Where(x => x.ClientId == client.Id);
-
-			return Json(policies);
+			return Ok(_iMapper.Map<ICollection<PolicyModel>>(policies));
 		}
 	}
 }

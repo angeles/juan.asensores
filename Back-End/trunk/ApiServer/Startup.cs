@@ -1,7 +1,7 @@
-﻿using IdentityServer3.AccessTokenValidation;
+﻿using ApiServer.Filters;
+using IdentityServer3.AccessTokenValidation;
 using Microsoft.Owin;
 using Owin;
-using System.IdentityModel.Claims;
 using System.Web.Http;
 
 [assembly: OwinStartup(typeof(ApiServer.Startup))]
@@ -22,10 +22,11 @@ namespace ApiServer
 
 			// configure web api
 			var config = new HttpConfiguration();
-			config.MapHttpAttributeRoutes();
 
-			// require authentication for all controllers
-			config.Filters.Add(new AuthorizeAttribute());
+			WebApiConfig.Register(config);
+			UnityConfig.RegisterComponents(config);
+
+			FilterConfig.RegisterGlobalFilters(config.Filters);
 
 			app.UseWebApi(config);
 		}
