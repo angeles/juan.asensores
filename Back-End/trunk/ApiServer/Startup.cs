@@ -14,9 +14,10 @@ namespace ApiServer
 			// accept access tokens from identityserver and require a scope of 'api1'
 			app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
 			{
-				Authority = "http://localhost:5000",
+				Authority = "http://localhost:5000/identity",
 				ValidationMode = ValidationMode.ValidationEndpoint,
-				RoleClaimType = "client_role",
+				//RoleClaimType = "client_role",
+				
 				RequiredScopes = new[] { "AuthApi" }
 			});
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Net.Http;
+using System.Text;
 
 namespace AuthApiTester
 {
@@ -9,16 +10,34 @@ namespace AuthApiTester
 	{
 		private static HttpClient apiClient;
 
-		private const string clientId = "d70d5ba5-7469-409c-a9f0-d6987d9b3f36";
+		private const string clientId = "197BD9C4-7504-4776-B3BD-B15B6F5CD43B";
+
+		private const string userName = "britneyblankenship@quotezart.com";
+
+		private const string userPassword = "Ab23$gH";
 
 		[ClassInitialize]
 		public static void SetUp(TestContext context)
 		{
 			Console.WriteLine(string.Format("Initializing with Admin client {{{0}}}", clientId));
-			var token = AuthHelper.GetClientToken(clientId);
+			var client = AuthHelper.GetClientToken(clientId);
 			apiClient = new HttpClient();
+			var token = client.GetUserToken(userName, userPassword);
 			apiClient.SetBearerToken(token.AccessToken);
 			apiClient.BaseAddress = new Uri("http://localhost:1912");
+		}
+
+		[TestMethod]
+		public void AdminClient_RegisterOk()
+		{
+			var registerClient = new HttpClient();
+
+			registerClient.BaseAddress = new Uri("http://localhost:5000");
+
+			string obj = "{'userName':'" + userName + "', 'password':'" + userPassword + "' }";
+
+			var content = new StringContent(obj, Encoding.UTF8, "application/json");
+			var result = registerClient.PostAsync("/register", content).Result;
 		}
 
 		[TestMethod]

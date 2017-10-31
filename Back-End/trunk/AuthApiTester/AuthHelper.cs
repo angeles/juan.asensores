@@ -4,14 +4,17 @@ namespace AuthApiTester
 {
 	public static class AuthHelper
 	{
-		public static TokenResponse GetClientToken(string clientId)
+		public static TokenClient GetClientToken(string clientId)
 		{
-			var client = new TokenClient(
-				"http://localhost:5000/connect/token",
+			return new TokenClient(
+				"http://localhost:5000/identity/connect/token",
 				clientId,
 				"F621F470-9731-4A25-80EF-67A6F7C5F4B8");
+		}
 
-			return client.RequestClientCredentialsAsync("AuthApi").Result;
+		public static TokenResponse GetUserToken(this TokenClient client, string user, string password)
+		{
+			return client.RequestResourceOwnerPasswordAsync(user, password, "AuthApi").Result;
 		}
 	}
 }

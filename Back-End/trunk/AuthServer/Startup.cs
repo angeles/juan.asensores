@@ -1,9 +1,9 @@
-﻿using IdentityServer3.Core.Configuration;
-using IdentityServer3.Core.Services;
-using IdentityServer3.Core.Services.InMemory;
+﻿using AuthServer.Data;
+using AuthServer.Managers;
+using IdentityServer3.Core.Configuration;
 using Microsoft.Owin;
 using Owin;
-using System.Collections.Generic;
+using System.Web.Http;
 
 [assembly: OwinStartup(typeof(AuthServer.Startup))]
 namespace AuthServer
@@ -12,17 +12,23 @@ namespace AuthServer
 	{
 		public void Configuration(IAppBuilder app)
 		{
-			var options = new IdentityServerOptions
+			app.CreatePerOwinContext(AuthServerDbContext.Create);
+			app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+
+			app.Map("/identity", idsrvApp =>
 			{
-				Factory = new IdentityServerServiceFactory()
-							.UseInMemoryScopes(Scopes.Get())
-							.UseInMemoryUsers(new List<InMemoryUser>()),
+				var options = new IdentityServerOptions();
 
-				RequireSsl = false
-			};
+				IdentityServerConfig.Register(options);
 
-			options.Factory.ClientStore = new Registration<IClientStore, ClientService>();
-			app.UseIdentityServer(options);
+				idsrvApp.UseIdentityServer(options);
+			});
+
+			HttpConfiguration httpConfiguration = new HttpConfiguration();
+
+			WebApiConfig.Register(httpConfiguration);
+
+			app.UseWebApi(httpConfiguration);
 		}
 	}
 }
