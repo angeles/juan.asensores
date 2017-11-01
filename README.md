@@ -5,6 +5,20 @@ Esto es necesario porque originalmente este proyecto lo resguarde en un reposito
 Git no posee un manejo de externos como posee SVN, y no recupera correctamente enlaces simbolicos de directorio de windows,
 por lo que resolvi generar este bat para solucionar el problema.
 
+Update: Se hicieron cambios mayores en cuanto a la arquitectura de la construcción de los servicios. Entre estos cambios se aplico uso de:
+
+* Diseño n-Layers: Se cambio la arquitectura de ApiServer para que respete un modelo de n-Layers con inyección de dependencias.
+                   El mismo principio no se aplico directamente en AuthServer, debido a que el control de las dependencias hay que
+		   manejarlo dentro de IdentityServer directamente, y me parecio que quizas no se veia completamente el manejo completo
+		   de las mismas.
+* Entity Framework: Se agrego uso de EntityFramework y un repositorio para el proyecto de AuthServer, el cual ahora posee un servicio para
+                    registrar nuevos usuarios. Los usuarios solo se les permite el registro si existen en el mock de clientes.
+* Flujo de Autorización: Se modifico el modelo de autenticación para que sea de flujo completo de cliente-usuario (ResourceOwner).
+                         De esta manera ApiServer actua como un cliente teniendo sus claves de api propias, las cuales se adjuntan
+			 a las del usuario con una autorización completa de acceso.
+* Servicios: Se modifico la url de respuesta de IdentityServer, y este ahora responde a <AuthServerBaseURL>/identity y se agrego un
+             nuevo metodo de registro en la url <AuthServerBaseURL>/register
+* Front-End: Se hicieron algunos cambios esteticos y de navegabilidad, para que sea un poco mas amistoso/natural para el usuario.
 
 Back-End:
 
@@ -12,13 +26,17 @@ En el directorio Back-End\trunk se podra encontrar la solución completa del Bac
 
 La solución se planteo en 3 partes:
 
-1. AuthServer: Implementado con IdentityServer y maneja la autorización mediante clients (como no habian contraseñas de usuarios,
-               me parecio demasiado hacer un api para registro, aunque si consideran lo podría hacer.). Este proyecto esta armado
-	       como Standalone para correr desde consola.
-2. ApiServer: Este contiene el api que devuelve con métodos la información solicitada por el ejercicio, para su utilización primero
-              se debe obtener un token del server de autorizaciones y luego, se podra llamar a los metodos, luego dependiendo del rol
-	      del cliente llamador, cada método devolverá la información o un error 401. Este proyecto se armo como proyecto
-	      web, para correr desde IIS o IIS Express.
+1. AuthServer: Implementado con IdentityServer, AspNet Identity y EntityFramework. Maneja la autorización mediante clients y users
+               Posee un metodo para registro de usuarios, el cual valida contra los datos de clientes del servicio de mock y crea nuevos
+	       usuarios si y solo si corresponde a un cliente existente (verifica por email). Este proyecto esta armado como Standalone
+	       para correr desde consola. Como repositorio de datos, se hace uso de MySQL, y se implementaron migraciones explicitas de
+	       base de datos, por lo que el proyecto, al iniciar, conecta y genera la base de datos necesaria para operar.
+	       Este proyecto incluye en sus dependencias, los proyectos que se pueden encontrar en la carpeta de solucion "Auth".
+2. ApiServer: Implementado en n-layers, este proyecto contiene el api que devuelve con métodos la información solicitada por el ejercicio,
+              para su utilización primero se debe obtener un token del server de autorizaciones y luego, se podra llamar a los metodos,
+	      luego dependiendo del rol del cliente llamador, cada método devolverá la información o un error 401. Este proyecto se armo
+	      como proyecto web, para correr desde IIS o IIS Express. Este proyecto incluye en sus dependencias, los proyectos que se
+	      pueden encontrar en la carpeta de solucion "Api".
 3. AuthApiTester: Es un proyecto, implementado con mstest, que hace las verificaciones y uso de los metodos del apiServer, el mismo
                   ejecuta 2 pasos, uno con rol admin y otro con rol user.
 
