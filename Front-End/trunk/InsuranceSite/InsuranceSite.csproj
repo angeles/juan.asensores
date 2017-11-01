@@ -137,6 +137,12 @@
     <Content Include="Content\site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\admin.png" />
+    <Content Include="images\loading.gif" />
+    <Content Include="images\logo-dark.png" />
+    <Content Include="images\logo-large-dark.png" />
+    <Content Include="images\Tick-mark-icon.png" />
+    <Content Include="images\user.png" />
     <Content Include="packages.config" />
     <Content Include="package.json" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -214,9 +220,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\MockClient\MockClient.csproj">
       <Project>{17752017-004B-41B9-92F0-C9B43B52C7C0}</Project>

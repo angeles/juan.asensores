@@ -1,4 +1,13 @@
-﻿<div class='panel panel-primary'>
+﻿<style>
+	.hover-table tbody tr:hover {
+          background-color: #337ab7;
+		  color:aliceblue;
+        }
+	.hover-table tbody tr:hover a {
+		color:aliceblue;
+	}
+</style>
+<div class='panel panel-primary'>
 	<div class='panel-heading'>
 		Clients
 	</div>
@@ -9,23 +18,19 @@
 		<div class='table-responsive'>
 			<div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
 			<div *ngIf='users && users.length==0 && !indLoading' class="alert alert-info" role="alert">No record found!</div>
-			<table class='table table-striped' *ngIf='users && users.length'>
+			<table class='table table-striped hover-table' *ngIf='users && users.length'>
 				<thead>
 					<tr>
 						<th>Name</th>
 						<th>Email</th>
-						<th>Role</th>
-						<th></th>
+						<th>Admin</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let user of users | userFilter:listFilter | paginate: { id: 'userPager', itemsPerPage: 8, currentPage: x }">
+					<tr *ngFor="let user of users | userFilter:listFilter | paginate: { id: 'userPager', itemsPerPage: 8, currentPage: x }" (click)="viewDetail(user.id)">
 						<td>{{user.name}}</td>
-						<td>{{user.email}}</td>
-						<td>{{user.role}}</td>
-						<td>
-							<button title="Policies" class="btn btn-primary rounded-control" (click)="viewDetail(user.id)">Policies</button>
-						</td>
+						<td><a [href]="'mailto:' + user.email">{{user.email}}</a></td>
+						<td><img src="../../images/admin.png" *ngIf="user.role == 'admin'" style="width:20px"/></td>
 					</tr>
 				</tbody>
 			</table>
@@ -44,17 +49,16 @@
 
 <modal #modal>
 	<modal-header [show-close]="true">
-		<h4 class="modal-title">Client Detail</h4>
+		<h4 class="modal-title">{{user.name}} Details</h4>
 	</modal-header>
 	<modal-body>
 		<div class="table-responsive">
+			<div class="col-md-5">
+				<img [src]="user.role == 'admin'?'../../images/admin.png':'../../images/user.png'" style="width:200px" /> 
+			</div>
 			<div class="col-md-7">
 				<span>Id</span>
 				<input type="text" class="form-control" readonly="readonly" placeholder="Name" value="{{user.id}}">
-			</div>
-			<div class="col-md-5">
-				<span>Name</span>
-				<input type="text" class="form-control" readonly="readonly" placeholder="Name" value="{{user.name}}">
 			</div>
 			<div class="col-md-7">
 				<span>Email</span>

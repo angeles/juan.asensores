@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DecimalPipe, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PolicyService } from '../Service/policy.service';
 import { UserService } from '../Service/user.service';

@@ -13,20 +13,22 @@
 				<thead>
 					<tr>
 						<th>Amount Insured</th>
-						<th>Email</th>
+						<th>Issuer Email</th>
 						<th>Inception Date</th>
 						<th>Installment Payment</th>
-						<th *ngIf='!clientLoad'></th>
+						<th *ngIf='!clientLoad'>Holder</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr *ngFor="let policy of policies | policyFilter:listFilter | paginate: { id: 'policyPager', itemsPerPage: cantPerPage, currentPage: p }">
-						<td>{{policy.amountInsured}}</td>
-						<td>{{policy.email}}</td>
-						<td>{{policy.inceptionDate}}</td>
-						<td>{{policy.installmentPayment}}</td>
+						<td style="text-align:right; width:130px; padding-right:20px"> {{policy.amountInsured | currency:USD:true:'1.2-2'}}</td>
+						<td><a [href]="'mailto:' + policy.email">{{policy.email}}</a></td>
+						<td>{{policy.inceptionDate | date: 'MMM dd yyyy HH:mm:ss' }}</td>
+						<td><img *ngIf="policy.installmentPayment" src="../../images/Tick-mark-icon.png" style="width:20px; text-align:center" /></td>
 						<td *ngIf='!clientLoad'>
-							<button title="Client" class="btn btn-primary rounded-control" (click)="viewClient(policy.clientId)">Client</button>
+							<button title="Client" class="btn btn-primary client-btn" (click)="viewClient(policy.clientId)">
+								<span class="glyphicon glyphicon-user"></span>&nbsp;
+							</button>
 						</td>
 					</tr>
 				</tbody>
@@ -49,19 +51,22 @@
 <ng-container *ngIf="!clientLoad">
 	<modal #modal>
 		<modal-header [show-close]="true">
-			<h4 class="modal-title">Client Detail</h4>
+			<h4 class="modal-title">{{_client.name}} Detail</h4>
 		</modal-header>
 		<modal-body>
-			<div class="form-group">
-				<div>
-					<span>Name</span>
-					<input type="text" class="form-control" readonly="readonly" placeholder="Name" value="{{_client.name}}">
+			<div class="table-responsive">
+				<div class="col-md-5">
+					<img [src]="_client.role == 'admin'?'../../images/admin.png':'../../images/user.png'" style="width:200px" />
 				</div>
-				<div>
+				<div class="col-md-7">
+					<span>Id</span>
+					<input type="text" class="form-control" readonly="readonly" placeholder="Id" value="{{_client.id}}">
+				</div>
+				<div class="col-md-7">
 					<span>Email</span>
 					<input type="text" class="form-control" readonly="readonly" placeholder="Email" value="{{_client.email}}">
 				</div>
-				<div>
+				<div class="col-md-5">
 					<span>Role</span>
 					<input type="text" class="form-control" readonly="readonly" placeholder="Role" value="{{_client.role}}">
 				</div>

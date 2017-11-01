@@ -8,7 +8,7 @@ import { MessageService } from './Service/message.service';
 })
 
 export class AppComponent implements OnDestroy {
-	loggedInUser: string = '';
+	loggedInUser: string = null;
 	subscription: Subscription;
 
 	constructor(private messageService: MessageService) {
