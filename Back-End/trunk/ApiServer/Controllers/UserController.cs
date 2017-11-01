@@ -1,4 +1,5 @@
-﻿using ApiServer.Models;
+﻿using ApiServer.Filters;
+using ApiServer.Models;
 using ApiServer.Services.Interfaces;
 using AutoMapper;
 using System;
@@ -20,7 +21,7 @@ namespace ApiServer.Controllers
 		}
 
 		[Route("users/{id:guid}")]
-		[Authorize(Roles = "user,admin")]
+		[ApiAuthorize(Roles = "user,admin")]
 		[ResponseType(typeof(ClientModel))]
 		public IHttpActionResult Get(Guid id)
 		{
@@ -30,7 +31,7 @@ namespace ApiServer.Controllers
 		}
 
 		[Route("users/{name}")]
-		[Authorize(Roles = "user,admin")]
+		[ApiAuthorize(Roles = "user,admin")]
 		[ResponseType(typeof(ClientModel))]
 		public IHttpActionResult GetByName(string name)
 		{
@@ -40,7 +41,7 @@ namespace ApiServer.Controllers
 		}
 
 		[Route("policies/{number:guid}/user")]
-		[Authorize(Roles = "admin")]
+		[ApiAuthorize(Roles = "admin")]
 		[ResponseType(typeof(ClientModel))]
 		public IHttpActionResult GetByPolicy(Guid number)
 		{

@@ -1,4 +1,5 @@
-﻿using ApiServer.Models;
+﻿using ApiServer.Filters;
+using ApiServer.Models;
 using ApiServer.Services.Interfaces;
 using AutoMapper;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace ApiServer.Controllers
 
 		[Route("users/{userName}/policies")]
 		[Route("policies")]
-		[Authorize(Roles = "admin")]
+		[ApiAuthorize(Roles = "admin")]
 		[ResponseType(typeof(ICollection<PolicyModel>))]
 		public IHttpActionResult GetByClientName(string userName)
 		{

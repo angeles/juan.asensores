@@ -78,7 +78,7 @@ namespace AuthApiTester
 			{
 				Assert.IsNotNull(e.InnerException, string.Format("Unexpected Exception: {0} - {1}", e.GetType().Name, e.Message));
 				Assert.IsInstanceOfType(e.InnerException, typeof(HttpRequestException), string.Format("Unexpected Inner Exception: {0} - {1}", e.InnerException.GetType().Name, e.InnerException.Message));
-				Assert.IsTrue(e.InnerException.Message.Contains("401"));
+				Assert.IsTrue(e.InnerException.Message.Contains("403"));
 				Console.WriteLine("User Not Authorized to access this Method");
 			}
 			catch (Exception e)
@@ -101,7 +101,7 @@ namespace AuthApiTester
 			{
 				Assert.IsNotNull(e.InnerException, string.Format("Unexpected Exception: {0} - {1}", e.GetType().Name, e.Message));
 				Assert.IsInstanceOfType(e.InnerException, typeof(HttpRequestException), string.Format("Unexpected Inner Exception: {0} - {1}", e.InnerException.GetType().Name, e.InnerException.Message));
-				Assert.IsTrue(e.InnerException.Message.Contains("401"));
+				Assert.IsTrue(e.InnerException.Message.Contains("403"));
 				Console.WriteLine("User Not Authorized to access this Method");
 			}
 			catch (Exception e)
